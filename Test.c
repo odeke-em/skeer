@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include "Streamer.h"
 #include "MManager.h"
 
 int main() {
@@ -7,6 +8,10 @@ int main() {
         printf("%s", (char *)mmgr->buf);
     }
     mmgr = destroyMManager(mmgr);
+
+    // Test out the streamer
+    Streamer *s = newStreamer();
+    s = destroyStreamer(s);
 
     return 0;
 }
