@@ -62,6 +62,11 @@ MManager *destroyMManager(MManager *mmgr) {
             if (munmap(mmgr->buf, mmgr->mapLength)) {
                 raiseWarning("Failed to munmap %ld bytes of buf: %p\n", mmgr->mapLength, mmgr->buf);
             }
+            if (mmgr->fd >= 0 && close(mmgr->fd)) {
+                raiseWarning("Failed to close file descriptor: %d due to error: %s\n",
+                    mmgr->fd, strerror(errno)
+                );
+            }
 
             mmgr->fd = -1;
             mmgr->buf = NULL;
