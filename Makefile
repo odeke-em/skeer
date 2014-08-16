@@ -2,8 +2,8 @@ CC := gcc
 FLAGS := -Wall -Wextra
 LIBS := -pthread -lm -lc
 
-Test:	Test.c MManager.o Streamer.o
-	$(CC) $(FLAGS) Test.c MManager.o Streamer.o RTrie.o HashMap.o -o Test $(LIBS)
+Test:	Test.c MManager.o Streamer.o Manifest.o
+	$(CC) $(FLAGS) Test.c MManager.o Manifest.o Streamer.o RTrie.o HashMap.o -o Test $(LIBS)
 
 MManager.o:	MManager.h MManager.c HashMap.o
 	$(CC) $(FLAGS) -c MManager.c -o MManager.o $(LIBS)
@@ -13,6 +13,9 @@ HashMap.o:	rodats/hashmap/HashMap.c RTrie.o
 
 Streamer.o:	Streamer.c
 	$(CC) $(FLAGS) -c Streamer.c -o Streamer.o $(LIBS)
+
+Manifest.o:	Manifest.c
+	$(CC) $(FLAGS) -c Manifest.c -o Manifest.o $(LIBS)
 
 HashMap.o:	rodats/hashmap/HashMap.c
 	$(CC) $(FLAGS) -c rodats/hashmap/HashMap.c -o HashMap.o $(LIBS)

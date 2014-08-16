@@ -1,4 +1,3 @@
-#include <math.h>
 #include <errno.h>
 #include <fcntl.h>
 #include <stdlib.h>
@@ -8,6 +7,7 @@
 #include <sys/stat.h>
 
 #include "MManager.h"
+#include "Manifest.h"
 #include "rodats/hashmap/errors.h"
 #include "rodats/hashmap/HashMap.h"
 
@@ -49,7 +49,20 @@ MManager *newMManager(const char *path) {
             mmgr->mapLength = mapLength;
             mmgr->origSize = stSav.st_size;
             mmgr->chunkMap = newHashMap(10); // TODO: Drop chunks into chunkmap
-            mmgr->chunkCount = (unsigned long int)ceil(mapLength/((float)pageSize)) || 1; 
+
+            // Chunking here
+            unsigned long int i=0;
+            void **s=mmgr->buf, **e, **extreme = mmgr->buf + mmgr->origSize;
+            while (s < extreme) {
+                e = s + mmgr->pageSize;
+                mmgr->chunkMap = putWithFreer(
+                    mmgr->chunkMap, i, (void *)newManifest(i, s, e), noRetrManifestFree, 1
+                );
+                s = e;
+                ++i;
+            }
+
+            mmgr->chunkCount = i;
 
             return mmgr;
         }
