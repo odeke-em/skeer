@@ -2,7 +2,7 @@
 #include <pthread.h>
 
 #include "Manifest.h"
-#include "rodats/hashmap/errors.h"
+#include "rodats/hashset/errors.h"
 
 static pthread_mutex_t _MANIFEST_MUTEX_ = PTHREAD_MUTEX_INITIALIZER;
 
@@ -10,15 +10,21 @@ inline Manifest *allocManifest(void) {
     return (Manifest *)malloc(sizeof(Manifest));
 }
 
-Manifest *newManifest(void) {
+void noRetrManifestFree(void *d) {
+    Manifest *mf = (Manifest *)d;
+    mf = destroyManifest(mf);
+}
+
+Manifest *newManifest(const unsigned int id, void **start, void **end) {
     Manifest *mf = allocManifest();
     assert(mf != NULL);
 
-    mf->id = 0;
-    mf->buf = NULL;
-    mf->start = mf->end = 0;
-    mf->isFreed = False;
+    mf->id = id;
     mf->isHeapd = True;
+    mf->isFreed = False;
+
+    mf->start = start;
+    mf->end = end;
 
     return mf;
 }

@@ -11,14 +11,15 @@
     typedef struct {
         void *metaInfo;
         unsigned int id;
+        void **start, **end; // Not owned by us, just referral from provider
         Bool isFreed, isHeapd;
-        unsigned long int start, end;
-        const void *buf; // Not owned by us, just referral from provider
     } Manifest;
 
     inline Manifest *allocManifest(void);
 
-    Manifest *newManifest(void);
+    Manifest *newManifest(const unsigned int id, void **start, void **end);
     Manifest *destroyManifest(Manifest *m);
+
+    void noRetrManifestFree(void *d);
 
 #endif // _MANIFEST_H
