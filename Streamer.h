@@ -1,6 +1,6 @@
 #ifndef _STREAMER_H
 #define _STREAMER_H
-    #include "rodats/hashmap/HashMap.h"
+    #include "rodats/hashset/HashMap.h"
 
     typedef struct {
         int fd;

@@ -8,8 +8,8 @@
 #include <sys/stat.h>
 
 #include "MManager.h"
-#include "rodats/hashmap/errors.h"
-#include "rodats/hashmap/HashMap.h"
+#include "rodats/hashset/errors.h"
+#include "rodats/hashset/HashMap.h"
 
 inline MManager *allocMManager(void) {
     return (MManager *)malloc(sizeof(MManager));

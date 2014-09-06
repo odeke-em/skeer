@@ -1,6 +1,6 @@
 #ifndef _MMANAGER_H
 #define _MMANAGER_H
-    #include "rodats/hashmap/HashMap.h"
+    #include "rodats/hashset/HashMap.h"
 
     #ifdef ALIGN_BOUNDARY
         #undef ALIGN_BOUNDARY

@@ -1,7 +1,7 @@
 #include <stdlib.h>
 
 #include "Streamer.h"
-#include "rodats/hashmap/errors.h"
+#include "rodats/hashset/errors.h"
 
 static UInt Base = 10;
 
